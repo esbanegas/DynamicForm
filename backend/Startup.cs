@@ -28,7 +28,7 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            services.AddServiceDependency();
             services.AddDbContext<DynamicFormDataContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DynamicFormDataContext"));
