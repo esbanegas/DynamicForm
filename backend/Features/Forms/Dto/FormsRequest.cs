@@ -4,4 +4,9 @@ namespace backend.Features.Forms.Dto
     {
         public int? FormId {get; set;}
     }
+
+     public class PostFormRequest
+    {
+        public FormTemplateDto Form{get;set;}
+    }
 } 

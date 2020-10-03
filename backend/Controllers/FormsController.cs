@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using backend.Features.Forms;
 using backend.Features.Forms.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,15 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public List<FormTemplateDto> Get([FromHeader] GetFormRequest request)
+        public async Task<List<FormTemplateDto>> GetForms([FromHeader] GetFormRequest request)
         {
-            return _formsAppService.GetFormsId(request);
+            return await _formsAppService.GetFormsId(request);
+        }
+
+        [HttpPost]
+        public  async Task<string> CreateForm(PostFormRequest request)
+        {
+            return await _formsAppService.CretaeForm(request);
         }
     }
        
