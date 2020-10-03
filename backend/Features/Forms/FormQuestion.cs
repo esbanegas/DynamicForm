@@ -9,6 +9,7 @@ namespace backend.Features.Forms
         public int FormSectionId  {get;set;}
         public string QuestionDescription  { get; set; } 
         public string AnswerType { get; set; }
+        public int? Order {get;set;}
 
         public virtual ICollection<FormAnswer> FormAnswers {get;set;}
         public virtual FormSection FormSection {get;set;}

@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using backend.DataContext;
+using backend.Features.Forms.Dto;
 
 namespace backend.Features.Forms
 {
@@ -11,9 +13,27 @@ namespace backend.Features.Forms
         {
             _dynamicFormDataContext = dynamicFormDataContext;
         }
-        public List<string> GetFormsId()
+        public List<FormTemplateDto> GetFormsId(GetFormRequest request)
         {
-            return _dynamicFormDataContext.Forms.Select(r=>r.FormId).Distinct().ToList();
+            IEnumerable<Form> forms;
+            if(request.FormId>0){
+             forms = _dynamicFormDataContext.Forms.Where(r=>r.FormId==request.FormId).ToList();
+            }
+            else{
+                forms = _dynamicFormDataContext.Forms.ToList();
+            }
+
+            return BuildFormTemplateDto(forms);
+        }
+
+        private List<FormTemplateDto> BuildFormTemplateDto(IEnumerable<Form> forms)
+        {
+            return forms.Select(f=> new FormTemplateDto{
+                     FormId = f.FormId,
+                     Title = f.Title,
+                     Sections = FormSectionDto.From(f.FormSections)
+
+            }).ToList();
         }
     }
 }

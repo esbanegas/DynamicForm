@@ -24,5 +24,10 @@ namespace backend.DataContext
             modelBuilder.ApplyConfiguration(new FormAnswerMap());
             base.OnModelCreating(modelBuilder);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
     }
 }

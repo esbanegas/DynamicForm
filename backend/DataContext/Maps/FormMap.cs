@@ -12,7 +12,7 @@ namespace backend.DataContext.Maps
             builder.ToTable("Forms", "dbo");
             builder.HasKey(t => t.FormId);
 
-            builder.Property(x => x.FormId).HasColumnName("FormId").HasColumnType("varchar(20)").IsRequired();
+            builder.Property(x => x.FormId).HasColumnName("FormId").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
             builder.Property(t => t.Title).HasColumnName("Title").HasColumnType("varchar(50)").IsRequired().IsUnicode(false);
         }
     }

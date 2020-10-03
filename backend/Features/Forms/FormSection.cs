@@ -6,7 +6,7 @@ namespace backend.Features.Forms
     public class FormSection : Entity
     {
         public int FormSectionId  {get;set;}
-        public string FormId { get; set; }
+        public int FormId { get; set; }
         public string SectionTitle { get; set; }
 
         public virtual ICollection<FormQuestion> FormQuestions{get;set;}

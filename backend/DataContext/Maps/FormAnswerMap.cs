@@ -15,9 +15,7 @@ namespace backend.DataContext.Maps
             builder.Property(x => x.FormAnswerId).HasColumnName("FormAnswerId").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.FormQuestionId).HasColumnName("FormQuestionId").HasColumnType("int").IsRequired();
             builder.Property(x => x.AnswerDescription).HasColumnName("AnswerDescription").HasColumnType("varchar(200)").IsRequired();
-            builder.Property(x => x.Options).HasColumnName("Options").HasColumnType("varchar(200)").IsRequired();
-            builder.Property(x => x.Order).HasColumnName("Order").HasColumnType("int").IsRequired();
-
+            builder.Property(x => x.Order).HasColumnName("Order").HasColumnType("int");
             builder.HasOne(t => t.FormQuestion).WithMany(t => t.FormAnswers).HasForeignKey(t => t.FormQuestionId);
         }
     }

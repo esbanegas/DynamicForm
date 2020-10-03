@@ -13,8 +13,8 @@ namespace backend.DataContext.Maps
             builder.HasKey(t => t.FormSectionId);
 
             builder.Property(x => x.FormSectionId).HasColumnName("FormSectionId").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
-            builder.Property(x => x.FormId).HasColumnName("FormId").HasColumnType("varchar(20)").IsRequired();
-            builder.Property(t => t.SectionTitle).HasColumnName("SectionTitle").HasColumnType("varchar(80)").IsRequired().IsUnicode(false);
+            builder.Property(x => x.FormId).HasColumnName("FormId").HasColumnType("int").IsRequired();
+            builder.Property(t => t.SectionTitle).HasColumnName("SectionTitle").HasColumnType("varchar(80)").IsUnicode(false);
 
             builder.HasOne(t => t.Form).WithMany(t => t.FormSections).HasForeignKey(t => t.FormId);
         }

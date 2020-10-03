@@ -2,7 +2,7 @@
 
 namespace backend.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,8 @@ namespace backend.Migrations
                 schema: "dbo",
                 columns: table => new
                 {
-                    FormId = table.Column<string>(type: "varchar(20)", nullable: false),
+                    FormId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "varchar(50)", unicode: false, nullable: false)
                 },
                 constraints: table =>
@@ -29,8 +30,8 @@ namespace backend.Migrations
                 {
                     FormSectionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FormId = table.Column<string>(type: "varchar(20)", nullable: false),
-                    SectionTitle = table.Column<string>(type: "varchar(80)", unicode: false, nullable: false)
+                    FormId = table.Column<int>(type: "int", nullable: false),
+                    SectionTitle = table.Column<string>(type: "varchar(80)", unicode: false, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -53,7 +54,8 @@ namespace backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FormSectionId = table.Column<int>(type: "int", nullable: false),
                     QuestionDescription = table.Column<string>(type: "varchar(200)", nullable: false),
-                    AnswerType = table.Column<string>(type: "varchar(50)", nullable: false)
+                    AnswerType = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,8 +78,7 @@ namespace backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FormQuestionId = table.Column<int>(type: "int", nullable: false),
                     AnswerDescription = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Options = table.Column<string>(type: "varchar(200)", nullable: false),
-                    Order = table.Column<int>(type: "int", nullable: false)
+                    Order = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

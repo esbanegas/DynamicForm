@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using backend.Features.Forms;
+using backend.Features.Forms.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -15,9 +16,9 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public List<string> Get()
+        public List<FormTemplateDto> Get([FromHeader] GetFormRequest request)
         {
-            return _formsAppService.GetFormsId();
+            return _formsAppService.GetFormsId(request);
         }
     }
        
