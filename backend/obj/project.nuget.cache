@@ -1,14 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "GdA4wjDLs8jtvknFG2+v3uYTvsWJsFffy82B3bNcEGk0Bsb8YuLsL2w4tRjR3YnABst9y33npMQICKTzetlXCw==",
-  "success": true,
-  "projectFilePath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
-=======
   "dgSpecHash": "6pG1W/W/8KlvRdTLE2cxRz/RobPY6b0SrPE0eOEassv+gMkQqCnhWgu+SkLCDZQDnHXQZdxAxt9Y/Xwhf1x94w==",
   "success": true,
   "projectFilePath": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
->>>>>>> 332444b0ed15351cf192943c87fa03ac2e6c846d
   "expectedPackageFiles": [
     "C:\\Users\\dtercero\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\dtercero\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
@@ -152,5 +146,12 @@
     "C:\\Users\\dtercero\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\dtercero\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Local\\dynamicForm\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
