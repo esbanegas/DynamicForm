@@ -7528,11 +7528,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
+      "projectName": "backend",
+      "projectPath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
+      "packagesPath": "C:\\Users\\ebanegas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\obj\\",
+=======
       "projectUniqueName": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
       "projectName": "backend",
       "projectPath": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
       "packagesPath": "C:\\Users\\dtercero\\.nuget\\packages\\",
       "outputPath": "C:\\Local\\dynamicForm\\backend\\obj\\",
+>>>>>>> 332444b0ed15351cf192943c87fa03ac2e6c846d
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dtercero\\AppData\\Roaming\\NuGet\\NuGet.Config"
