@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\ebanegas\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\obj\\",
+=======
+    "C:\\Local\\dynamicForm\\backend\\backend.csproj": {}
+  },
+  "projects": {
+    "C:\\Local\\dynamicForm\\backend\\backend.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
+        "projectName": "backend",
+        "projectPath": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\dtercero\\.nuget\\packages\\",
+        "outputPath": "C:\\Local\\dynamicForm\\backend\\obj\\",
+>>>>>>> 2c2ad0f056aaa5ab0db1ef17917519c8cae7031c
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

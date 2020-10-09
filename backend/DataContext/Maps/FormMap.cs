@@ -14,6 +14,7 @@ namespace backend.DataContext.Maps
 
             builder.Property(x => x.FormId).HasColumnName("FormId").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
             builder.Property(t => t.Title).HasColumnName("Title").HasColumnType("varchar(50)").IsRequired().IsUnicode(false);
+            builder.Property(t => t.Description).HasColumnName("Description").HasColumnType("varchar(200)").IsUnicode(false);
         }
     }
 }

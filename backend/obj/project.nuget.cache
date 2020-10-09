@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "aEHl/fcVO6OLTOxVH9YJPgCOcBHHO8c3n6UbgBmE7YWLun2aKGW1o4xCUnECkwbVtFDCJD2DQJwSyEw3Tg8a7Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
+=======
+  "dgSpecHash": "6pG1W/W/8KlvRdTLE2cxRz/RobPY6b0SrPE0eOEassv+gMkQqCnhWgu+SkLCDZQDnHXQZdxAxt9Y/Xwhf1x94w==",
+  "success": true,
+  "projectFilePath": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
+>>>>>>> 2c2ad0f056aaa5ab0db1ef17917519c8cae7031c
   "expectedPackageFiles": [
     "C:\\Users\\ebanegas\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\ebanegas\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
@@ -151,7 +157,11 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
+<<<<<<< HEAD
       "message": "Problem reading the cache file C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+=======
+      "message": "Problem reading the cache file C:\\Local\\dynamicForm\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+>>>>>>> 2c2ad0f056aaa5ab0db1ef17917519c8cae7031c
     }
   ]
 }

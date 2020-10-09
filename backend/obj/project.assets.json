@@ -2916,6 +2916,7 @@
       "path": "microsoft.netcore.targets/1.1.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -3103,6 +3104,7 @@
       "path": "runtime.native.system/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -3287,6 +3289,7 @@
       "path": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -3302,6 +3305,7 @@
       "path": "runtime.win-x64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -3317,6 +3321,7 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -3626,6 +3631,7 @@
       "path": "system.collections.nongeneric/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -3702,6 +3708,7 @@
       "path": "system.componentmodel/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -3849,6 +3856,7 @@
       "path": "system.componentmodel.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -3887,6 +3895,7 @@
       "path": "system.componentmodel.typeconverter/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -4279,6 +4288,7 @@
       "path": "system.dynamic.runtime/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -4455,6 +4465,7 @@
       "path": "system.globalization.extensions/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5022,6 +5033,7 @@
       "path": "system.net.nameresolution/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5250,6 +5262,7 @@
       "path": "system.private.datacontractserialization/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.3/System.Private.DataContractSerialization.dll",
@@ -5346,6 +5359,7 @@
       "path": "system.reflection.emit/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5381,6 +5395,7 @@
       "path": "system.reflection.emit.ilgeneration/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5425,6 +5440,7 @@
       "path": "system.reflection.emit.lightweight/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5583,6 +5599,7 @@
       "path": "system.reflection.typeextensions/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5693,6 +5710,7 @@
       "path": "system.runtime/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5820,8 +5838,6 @@
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
-        "System.Runtime.CompilerServices.Unsafe.4.5.0.nupkg.sha512",
-        "System.Runtime.CompilerServices.Unsafe.nuspec",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
@@ -5835,6 +5851,8 @@
         "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
         "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
         "ref/uap10.0.16300/_._",
+        "system.runtime.compilerservices.unsafe.4.5.0.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
@@ -5845,6 +5863,7 @@
       "path": "system.runtime.extensions/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -6148,6 +6167,7 @@
       "path": "system.runtime.serialization.formatters/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -6176,6 +6196,7 @@
       "path": "system.runtime.serialization.json/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -6234,6 +6255,7 @@
       "path": "system.runtime.serialization.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -7175,14 +7197,15 @@
       "path": "system.threading.tasks.extensions/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
+        "System.Threading.Tasks.Extensions.4.3.0.nupkg.sha512",
+        "System.Threading.Tasks.Extensions.nuspec",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll",
         "lib/netstandard1.0/System.Threading.Tasks.Extensions.xml",
         "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.dll",
-        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml",
-        "system.threading.tasks.extensions.4.3.0.nupkg.sha512",
-        "system.threading.tasks.extensions.nuspec"
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml"
       ]
     },
     "System.Threading.Timer/4.3.0": {
@@ -7246,6 +7269,7 @@
       "path": "system.xml.readerwriter/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -7387,6 +7411,7 @@
       "path": "system.xml.xmldocument/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -7425,6 +7450,7 @@
       "path": "system.xml.xmlserializer/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -7506,11 +7532,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
       "projectName": "backend",
       "projectPath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
       "packagesPath": "C:\\Users\\ebanegas\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\obj\\",
+=======
+      "projectUniqueName": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
+      "projectName": "backend",
+      "projectPath": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
+      "packagesPath": "C:\\Users\\dtercero\\.nuget\\packages\\",
+      "outputPath": "C:\\Local\\dynamicForm\\backend\\obj\\",
+>>>>>>> 2c2ad0f056aaa5ab0db1ef17917519c8cae7031c
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -7588,7 +7622,11 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
+<<<<<<< HEAD
       "message": "Problem reading the cache file C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+=======
+      "message": "Problem reading the cache file C:\\Local\\dynamicForm\\backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+>>>>>>> 2c2ad0f056aaa5ab0db1ef17917519c8cae7031c
     }
   ]
 }
