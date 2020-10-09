@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
 import AddIcon from "@material-ui/icons/Add";
-import { TextField, makeStyles, Grid, Paper } from "@material-ui/core";
+import { TextField, makeStyles, Grid } from "@material-ui/core";
 import { ButtonPrimary } from "../../../../controls/Button";
+import { ListControl } from "../../../../controls/List";
+import { utils } from "../../../../utils";
+import { AddControl } from "../AddControls";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,16 +16,52 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(1),
   },
+
+  textField: {
+    fontSize: "10rem",
+  },
 }));
 
 export const CreateDynamicForm = () => {
   const [isAddBlock, setIsAddBlock] = useState(false);
+  const [form, setForm] = useState();
+  const [sections, setSections] = useState([]);
+  const [selectedSection, setSelectedSection] = useState({});
 
   const classes = useStyles();
 
   const handleAddBlock = () => {
     setIsAddBlock(true);
+    setSections([...sections, { sectionTitle: "Add Section" }]);
   };
+
+  const handleChange = (prop) => (event) => {
+    setForm({ ...form, [prop]: event.target.value });
+  };
+
+  const handleSelectedSection = (section) => setSelectedSection(section);
+
+  const handleSectionTitleBlur = (item) => (event) => {
+    debugger;
+    const sectionIndex = sections.findIndex(
+      (s) => s.sectionTitle === item.sectionTitle
+    );
+    const sectionsCopy = utils.copyOf(sections);
+
+    sectionsCopy[sectionIndex].sectionTitle = event.target.value;
+    setSections(sectionsCopy);
+  };
+
+  const onRenderSection = (item) => (
+    <TextField
+      className={classes.textField}
+      fullWidth
+      id="form-title"
+      variant="outlined"
+      placeholder="Description Section"
+      onBlur={handleSectionTitleBlur(item)}
+    />
+  );
 
   return (
     <div className={classes.root}>
@@ -34,6 +73,7 @@ export const CreateDynamicForm = () => {
               id="form-title"
               label="Form Title"
               variant="outlined"
+              onChange={handleChange("title")}
             />
           </div>
 
@@ -43,21 +83,31 @@ export const CreateDynamicForm = () => {
               id="form-description"
               label="Form Description"
               variant="outlined"
+              onChange={handleChange("description")}
             />
           </div>
         </Grid>
 
         <Grid item xs={12}>
           <ButtonPrimary
-            label="Add Block"
+            label="Add Section"
             startIcon={<AddIcon />}
             onClick={handleAddBlock}
           />
         </Grid>
 
-        {isAddBlock && (
+        {utils.evaluateArray(sections) && (
           <Grid item xs={12}>
-            <div>Block 1</div>
+            <ListControl
+              items={sections}
+              onRenderItem={onRenderSection}
+              onSelectedItem={handleSelectedSection}
+            />
+
+            <AddControl
+              selectedSection={selectedSection}
+              setSelectedSection={setSelectedSection}
+            />
           </Grid>
         )}
       </Grid>

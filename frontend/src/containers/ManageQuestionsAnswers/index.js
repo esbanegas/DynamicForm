@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid black",
     width: "40rem",
     padding: "1rem",
+    overflow: 'auto'
   },
   paper: {
     padding: theme.spacing(1),
