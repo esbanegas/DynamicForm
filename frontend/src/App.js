@@ -1,4 +1,6 @@
 import React from "react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ManageQuestionsAnswers } from "./containers/ManageQuestionsAnswers";
 import { Polls } from "./containers/Polls";
 
@@ -22,12 +24,17 @@ const theme = createMuiTheme({
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
-        {/* <Polls /> */}
-        <ManageQuestionsAnswers/>
-      </div>
-    </ThemeProvider>
+    <div>
+        <ThemeProvider theme={theme}>
+          <div className="App">
+            {/* <Polls /> */}
+            <ManageQuestionsAnswers/>
+          </div>
+        </ThemeProvider>
+        <ToastContainer style={{ zIndex: '2147483647' }} />
+    </div>
+
+    
   );
 };
 

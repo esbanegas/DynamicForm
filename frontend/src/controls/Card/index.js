@@ -1,7 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
-import { Card, CardHeader, CardContent, Divider } from "@material-ui/core";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  Divider,
+  CardActions,
+} from "@material-ui/core";
+import { ButtonPrimary } from "../Button";
+import { utils } from "../../utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +36,21 @@ const useStyles = makeStyles((theme) => ({
 const CardControl = ({ title, children, actions }) => {
   const classes = useStyles();
 
+  const renderActions = (actions) => {
+    if (utils.evaluateArray(actions)) {
+      return actions.map((action) => {
+        return (
+          <ButtonPrimary
+            startIcon={action.startIcon}
+            label={action.label}
+            onClick={action.onClick}
+          />
+        );
+      });
+    }
+    return <div></div>;
+  };
+
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -39,6 +62,8 @@ const CardControl = ({ title, children, actions }) => {
       />
       <Divider />
       <CardContent>{children}</CardContent>
+      <Divider />
+      <CardActions>{renderActions(actions)}</CardActions>
     </Card>
   );
 };
@@ -46,6 +71,7 @@ const CardControl = ({ title, children, actions }) => {
 CardControl.propTypes = {
   title: PropTypes.string.isRequired,
   child: PropTypes.element.isRequired,
+  actions: PropTypes.array,
 };
 
 export default CardControl;
