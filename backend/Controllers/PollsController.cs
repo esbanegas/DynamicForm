@@ -17,7 +17,7 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<List<PollTemplateDto>> GetForms([FromHeader] GetPollRequest request)
+        public async Task<List<PollTemplateDto>> GetPolls([FromHeader] GetPollRequest request)
         {
             return await _pollsAppService.GetPolls(request);
         }

@@ -36,6 +36,7 @@ namespace backend.Features.Polls
             {
                 PollId = f.PollId,
                 Title = f.Title,
+                UserId = f.UserId,
                 Sections = PollSectionDto.From(f.PollSections)
 
             }).ToList();

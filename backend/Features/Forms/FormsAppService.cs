@@ -36,6 +36,7 @@ namespace backend.Features.Forms
             {
                 FormId = f.FormId,
                 Title = f.Title,
+                Description = f.Description,
                 Sections = FormSectionDto.From(f.FormSections)
 
             }).ToList();

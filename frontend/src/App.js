@@ -1,5 +1,6 @@
 import React from "react";
 import { ManageQuestionsAnswers } from "./containers/ManageQuestionsAnswers";
+import { Polls } from "./containers/Polls";
 
 import "./App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
@@ -23,7 +24,8 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <ManageQuestionsAnswers />
+        {/* <Polls /> */}
+        <ManageQuestionsAnswers/>
       </div>
     </ThemeProvider>
   );

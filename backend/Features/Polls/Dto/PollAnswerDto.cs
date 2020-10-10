@@ -19,6 +19,7 @@ namespace backend.Features.Polls.Dto
                 AnswerDescription = a.AnswerDescription,
                 PollAnswerId = a.PollAnswerId,
                 PollQuestionId = a.PollQuestionId,
+                SelectedValue = a.SelectedValue,
                 Order = a.Order,
             }).ToList();
         }

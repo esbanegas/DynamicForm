@@ -34,6 +34,16 @@ namespace backend
                 options.UseSqlServer(Configuration.GetConnectionString("DynamicFormDataContext"));
             });
 
+            services.AddCors(options =>
+                            {
+                                options.AddPolicy("AnyOrigin", builder =>
+                                {
+                                    builder
+                                        .AllowAnyOrigin()
+                                        .AllowAnyMethod();
+                                });
+                            });
+
 
             SwaggerConfig.AddSwagger(services);
         }
@@ -45,7 +55,8 @@ namespace backend
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("AnyOrigin");
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -58,6 +69,8 @@ namespace backend
             });
 
             SwaggerConfig.UseSwagger(app);
+
+           
         }
     }
 }

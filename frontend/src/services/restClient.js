@@ -1,14 +1,20 @@
+import { toast } from 'react-toastify';
+import { isArray, isString, isNumber } from 'lodash';
+import { utils } from './../utils';
+
 const getUrl = () => {
   const env = window.location.host;
 
-   if (env === 'test') {
-    return 'http://localhost:44317/api/v1'; //TEst
-  } else if (env === 'production') {//production
-    return 'http://localhost:44317/api/v1';
+   if (env === 'production') {
+    return 'http://0.0.0.0:4001/api/v1';
   } 
-  
-  return 'http://localhost:44317/api/v1';
+  return 'http://localhost:5001';
 };
+
+export const getRequestUserInfo = () =>
+  sessionStorage.requestUserInfo
+    ? JSON.parse(sessionStorage.requestUserInfo)
+    : null;
 
 export const objectParametize = (obj, q, parent) => {
   const str = [];
@@ -65,7 +71,6 @@ export const objectParametize = (obj, q, parent) => {
 const urlBase = getUrl();
 
 const showValidationMessage = response => {
-  // waitControlHide();
   utils.hiddenWait();
   
   if (response) {
@@ -92,7 +97,6 @@ export class restClient {
     isEvaluateMessage = true,
   ) => {
     if (useWaitControl) {
-      // waitControlShow();
       utils.showWait();
     }
 
@@ -105,14 +109,12 @@ export class restClient {
     if (request) {
       urlparam = `&${objectParametize(request, false)}`;
     }
-
-    const paramUrl = `${url}?format=json${urlparam}`;
-    console.log(`${urlBase}${paramUrl}`);
+debugger;
+    const paramUrl = `${url}?accept: application/json${urlparam}`;
     return fetch(`${urlBase}${paramUrl}`)
       .catch(error => {
         
         if (useWaitControl) {
-          // waitControlHide();
           utils.hiddenWait();
         }
         toast.error(error.message);
@@ -123,14 +125,13 @@ export class restClient {
         if (response && response.status && response.status === 404) {
           return response;
         }
-        
         return !response.message && response.json();
       })
       .then(response => {
         
         if (response && response.status && response.status === 404) {
           if (useWaitControl) {
-            // waitControlHide();
+            
             utils.hiddenWait();
           }
           toast.error(response.statusText);
@@ -143,7 +144,6 @@ export class restClient {
 
   static httpPost = (url, obj, useWaitControl = true) => {
     if (useWaitControl) {
-      // waitControlShow();
       utils.showWait();
     }
 
@@ -160,7 +160,7 @@ export class restClient {
     })
       .catch(error => {
         if (useWaitControl) {
-          //waitControlHide();
+          
         }
         toast.error(error.message);
       })
@@ -170,7 +170,6 @@ export class restClient {
 
   static httpPut = (url, obj, useWaitControl = true) => {
     if (useWaitControl) {
-      // waitControlShow();
       utils.showWait();
     }
     const request = {
@@ -184,7 +183,7 @@ export class restClient {
     })
       .catch(error => {
         if (useWaitControl) {
-          // waitControlHide();
+          
           utils.hiddenWait();
         }
         toast.error(error.message);
@@ -195,7 +194,7 @@ export class restClient {
 
   static httpDelete = (url, obj, useWaitControl = true) => {
     if (useWaitControl) {
-      // waitControlShow();
+      
       utils.showWait();
     }
     const request = {
@@ -209,7 +208,6 @@ export class restClient {
     })
       .catch(error => {
         if (useWaitControl) {
-          // waitControlHide();
           utils.hiddenWait();
         }
         toast.error(error.message);
@@ -217,3 +215,25 @@ export class restClient {
       .then(response => response.json())
       .then(response => showValidationMessage(response));
   };
+
+  /**
+   * @param {data} array<Object>
+   * @param {headers} object
+   * @param {sheetName} string
+   * @param {documentNameXml} string
+   * @param {xmlData} string
+   * @param {amountDecimals} number
+   */
+  static ExportToExcel = (
+    data,
+    headers,
+    sheetName,
+    documentNameXml,
+    xmlData,
+    amountDecimals = 2,
+  ) => {
+    const request = { data, headers, sheetName, xmlData, amountDecimals };
+
+    return restClient.httpPost('/common/export-excel-file', request, false);
+  };
+}
