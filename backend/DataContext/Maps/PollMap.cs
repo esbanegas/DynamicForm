@@ -14,6 +14,7 @@ namespace backend.DataContext.Maps
 
             builder.Property(x => x.PollId).HasColumnName("PollId").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
             builder.Property(t => t.Title).HasColumnName("Title").HasColumnType("varchar(50)").IsRequired().IsUnicode(false);
+            builder.Property(t => t.UserId).HasColumnName("UserId").HasColumnType("varchar(50)").IsRequired().IsUnicode(false);
             builder.Property(t => t.Description).HasColumnName("Description").HasColumnType("varchar(200)").IsUnicode(false);
         }
     }

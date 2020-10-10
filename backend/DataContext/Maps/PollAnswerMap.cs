@@ -15,6 +15,7 @@ namespace backend.DataContext.Maps
             builder.Property(x => x.PollAnswerId).HasColumnName("PollAnswerId").HasColumnType("int").IsRequired().ValueGeneratedOnAdd();
             builder.Property(x => x.PollQuestionId).HasColumnName("PollQuestionId").HasColumnType("int").IsRequired();
             builder.Property(x => x.AnswerDescription).HasColumnName("AnswerDescription").HasColumnType("varchar(200)").IsRequired();
+            builder.Property(x => x.SelectedValue).HasColumnName("SelectedValue").HasColumnType("varchar(200)").IsUnicode(false);
             builder.Property(x => x.Order).HasColumnName("Order").HasColumnType("int");
             builder.HasOne(t => t.PollQuestion).WithMany(t => t.PollAnswers).HasForeignKey(t => t.PollQuestionId);
         }

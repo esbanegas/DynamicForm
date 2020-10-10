@@ -11,6 +11,7 @@ namespace backend.Features.Polls.Dto
         public int PollQuestionId  {get;set;}
         public string AnswerDescription  { get; set; } 
         public int? Order { get; set; }
+        public string SelectedValue { get; set; }
 
         internal static List<PollAnswerDto> From(ICollection<PollAnswer> answers)
         {

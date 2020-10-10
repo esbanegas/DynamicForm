@@ -8,6 +8,7 @@ namespace backend.Features.Polls
         public int PollQuestionId  {get;set;}
         public string AnswerDescription  { get; set; } 
         public int? Order { get; set; }
+        public string SelectedValue { get; set; }
 
         public virtual PollQuestion PollQuestion {get;set;}
     }

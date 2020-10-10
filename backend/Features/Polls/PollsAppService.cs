@@ -103,6 +103,12 @@ namespace backend.Features.Polls
         private bool ValidNewPollData(PollTemplateDto poll, out string validationMessage)
         {
             validationMessage = string.Empty;
+            if (string.IsNullOrWhiteSpace(poll.UserId))
+            {
+                validationMessage = "Please enter the user id";
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(poll.Title))
             {
                 validationMessage = "Please define a Title for the Poll";
@@ -131,6 +137,13 @@ namespace backend.Features.Polls
                 if (string.IsNullOrWhiteSpace(question.QuestionDescription))
                 {
                     validationMessage = $"Please difine a description for questión";
+                    return false;
+                }
+
+                bool hasAnAnswerSelected = question.Answers.Any(a=>!string.IsNullOrWhiteSpace(a.SelectedValue));
+
+                if(!hasAnAnswerSelected){
+                    validationMessage = $"Select an answer to the question <{question.QuestionDescription}>";
                     return false;
                 }
 
