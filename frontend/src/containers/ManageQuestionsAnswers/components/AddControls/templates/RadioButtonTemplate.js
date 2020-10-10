@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   FormControl,
@@ -13,15 +13,19 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { utils } from "../../../../../utils";
 import { ButtonPrimary } from "../../../../../controls/Button";
 
-export const RadioButtonTemplate = ({ isCreateForm }) => {
+export const RadioButtonTemplate = ({ isCreateForm, onSelectAnswers }) => {
   const [answers, setAnswers] = useState([]);
   const [value, setValue] = useState("");
 
   const handleClick = () => {
-    setAnswers([
+    const newAnswers = [
       ...answers,
       { label: `Option ${answers.length + 1}`, value: "" },
-    ]);
+    ];
+
+    setAnswers(newAnswers);
+
+    // onSelectAnswers(newAnswers);
   };
 
   const handleEditOption = (index) => () => {
@@ -43,6 +47,12 @@ export const RadioButtonTemplate = ({ isCreateForm }) => {
 
   const handleChange = (event, value) => {
     setValue(value);
+  };
+
+  const handleDeleteOption = (item) => () => {
+    const answersCopy = answers.filter((s) => s.label !== item.label);
+
+    setAnswers(answersCopy);
   };
 
   return (
@@ -69,7 +79,7 @@ export const RadioButtonTemplate = ({ isCreateForm }) => {
                   />
                 )}
 
-                <IconButton>
+                <IconButton onClick={handleDeleteOption(item)}>
                   <DeleteIcon />
                 </IconButton>
               </div>

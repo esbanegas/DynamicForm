@@ -4,6 +4,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 import { utils } from "../../../../../utils";
 import { Checkbox, FormControlLabel, IconButton } from "@material-ui/core";
+import { ButtonPrimary } from "../../../../../controls/Button";
 
 export const CheckBoxTemplate = () => {
   const [answers, setAnswers] = useState([]);
@@ -37,6 +38,12 @@ export const CheckBoxTemplate = () => {
     setValue(value);
   };
 
+  const handleDeleteOption = (item) => () => {
+    const answersCopy = answers.filter((s) => s.label !== item.label);
+
+    setAnswers(answersCopy);
+  };
+
   return (
     <div>
       {utils.evaluateArray(answers) &&
@@ -48,7 +55,7 @@ export const CheckBoxTemplate = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked
+                    checked={false}
                     // onChange={handleChange}
                     name="checkedA"
                   />
@@ -58,13 +65,15 @@ export const CheckBoxTemplate = () => {
               />
             )}
 
-            <IconButton>
+            <IconButton onClick={handleDeleteOption(item)}>
               <DeleteIcon />
             </IconButton>
           </div>
         ))}
 
-      <div onClick={handleClick}>Add Option</div>
+      <div>
+        <ButtonPrimary isButtonText label="Add Option" onClick={handleClick} />
+      </div>
     </div>
   );
 };
