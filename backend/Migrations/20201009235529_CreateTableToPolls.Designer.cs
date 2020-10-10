@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.DataContext;
 
 namespace backend.Migrations
 {
     [DbContext(typeof(DynamicFormDataContext))]
-    partial class DynamicFormDataContextModelSnapshot : ModelSnapshot
+    [Migration("20201009235529_CreateTableToPolls")]
+    partial class CreateTableToPolls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,12 +149,6 @@ namespace backend.Migrations
                         .HasColumnType("varchar(50)")
                         .IsUnicode(false);
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnName("UserId")
-                        .HasColumnType("varchar(50)")
-                        .IsUnicode(false);
-
                     b.HasKey("PollId");
 
                     b.ToTable("Polls","dbo");
@@ -178,11 +174,6 @@ namespace backend.Migrations
                     b.Property<int>("PollQuestionId")
                         .HasColumnName("PollQuestionId")
                         .HasColumnType("int");
-
-                    b.Property<string>("SelectedValue")
-                        .HasColumnName("SelectedValue")
-                        .HasColumnType("varchar(200)")
-                        .IsUnicode(false);
 
                     b.HasKey("PollAnswerId");
 

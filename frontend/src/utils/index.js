@@ -4,8 +4,8 @@ import { isArray, isString } from 'lodash';
 export class utils {
 
   static showWait = () => {
-    const id = document.getElementById('spinner-love');
-    id.className = 'container-love love-show';
+    // const id = document.getElementById('spinner-love');
+    // id.className = 'container-love love-show';
   }
 
   static hiddenWait = () => {

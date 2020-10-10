@@ -1,5 +1,6 @@
 using backend.DataContext;
 using backend.Features.Forms;
+using backend.Features.Polls;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace backend
@@ -11,6 +12,7 @@ namespace backend
             services.AddTransient(typeof(DynamicFormDataContext));
 
             services.AddTransient<FormsAppService>();
+            services.AddTransient<PollsAppService>();
         }
     }
 }
