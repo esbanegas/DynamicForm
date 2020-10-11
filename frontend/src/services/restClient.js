@@ -72,7 +72,6 @@ const urlBase = getUrl();
 
 const showValidationMessage = response => {
   utils.hiddenWait();
-  
   if (response) {
     if (response.exceptionMessage) {
       toast.error(response.exceptionMessage);
@@ -88,6 +87,10 @@ const showValidationMessage = response => {
   }
   return response;
 };
+
+const returnResponse = response => {
+  return response.json()
+}
 
 export class restClient {
   static httpGet = (
@@ -109,7 +112,6 @@ export class restClient {
     if (request) {
       urlparam = `&${objectParametize(request, false)}`;
     }
-debugger;
     const paramUrl = `${url}?accept: application/json${urlparam}`;
     return fetch(`${urlBase}${paramUrl}`)
       .catch(error => {
@@ -143,30 +145,31 @@ debugger;
   };
 
   static httpPost = (url, obj, useWaitControl = true) => {
+    
     if (useWaitControl) {
       utils.showWait();
     }
-
-    const requestUserInfo = getRequestUserInfo();
-
     const request = {
-      ...obj,
-      requestUserInfo,
+      ...obj
     };
-    return fetch(`${urlBase}${url}`, {
+    const uriFinal = `${urlBase}${url}`;
+    const bodyString = JSON.stringify(request);
+    
+    return fetch(uriFinal, {
       method: 'POST',
-      body: JSON.stringify(request),
-      headers: { 'Content-type': 'application/json' },
+      body: bodyString,
+      headers: { 'Content-type': 'application/json'},
     })
       .catch(error => {
         if (useWaitControl) {
-          
         }
         toast.error(error.message);
       })
-      .then(response => response.json())
+      
+      .then(response => returnResponse(response))
       .then(response => showValidationMessage(response));
   };
+
 
   static httpPut = (url, obj, useWaitControl = true) => {
     if (useWaitControl) {

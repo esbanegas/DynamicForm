@@ -23,9 +23,10 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public  async Task<string> CreateForm(PostPollRequest request)
+        public  async Task<string> CreateForm([FromBody]PostPollRequest request)
         {
             return await _pollsAppService.CretaePoll(request);
+            
         }
     }
        

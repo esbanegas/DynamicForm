@@ -11,6 +11,7 @@ namespace backend.Features.Forms.Dto
        public int FormQuestionId{get;set;}
        public string AnswerDescription {get;set;}
        public int? Order {get;set;}
+       public string SelectedValue { get; set; }
 
         internal static List<FormAnswerDto> From(ICollection<FormAnswer> answers)
         {

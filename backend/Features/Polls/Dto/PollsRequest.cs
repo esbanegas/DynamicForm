@@ -1,3 +1,5 @@
+using backend.Features.Forms.Dto;
+
 namespace backend.Features.Polls.Dto
 {
     public class GetPollRequest
@@ -7,6 +9,6 @@ namespace backend.Features.Polls.Dto
 
      public class PostPollRequest
     {
-        public PollTemplateDto Poll{get;set;}
+        public FormTemplateDto Form{get;set;}
     }
 } 

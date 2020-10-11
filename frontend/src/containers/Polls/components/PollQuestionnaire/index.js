@@ -15,7 +15,6 @@ import { ListControl } from "../../../../controls/List";
 import { utils } from "../../../../utils";
 import { restClient } from "./../../../../services/restClient";
 import { toast } from "react-toastify";
-import { ButtonPrimary } from "../../../../controls/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,53 +34,55 @@ const useStyles = makeStyles((theme) => ({
 
 export const PollQuestionnaire = () => {
   const [form, setForm] = useState();
+  
+  const [poll, setPoll] = useState({});
+
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState({});
-
+  
+  
   const classes = useStyles();
 
   useEffect(() => {
-    debugger;
-    const fetchData = async () => {
-      const request = {
-        formId: 1,
-      };
-      const response = await restClient.httpGet("/Forms", request);
-
-      if (utils.hasErrorResponse(response)) {
-        return;
-      }
-      if (!utils.evaluateArray(response)) {
-        toast.warn("Form was not found !!");
-        return;
-      }
-
-      debugger;
-      const firstForm = response[0];
-      const section = firstForm.sections;
-      setForm(firstForm);
-      setSections(section);
-    };
-
-    fetchData();
+    
+        fetchData();
   }, []);
+
+  
+  const fetchData = async () => {
+    const request = {
+      formId: 1,
+    };
+    const response = await restClient.httpGet("/Forms", request);
+
+    if (utils.hasErrorResponse(response)) {
+      return;
+    }
+    if (!utils.evaluateArray(response)) {
+      toast.warn("Form was not found !!");
+      return;
+    }
+
+    const firstForm = response[0];
+    const sections = firstForm.sections;
+    
+    let answr = [];
+    sections.forEach(section => {
+      const anwsryQuestion = section.questions.map(q=> {
+         return q.answers;
+        });
+        answr.push(...anwsryQuestion);
+    });
+    
+    setForm(firstForm);
+    setSections(sections);
+  };
 
   const handleChange = (prop) => (event) => {
     setForm({ ...form, [prop]: event.target.value });
   };
 
   const handleSelectedSection = (section) => setSelectedSection(section);
-
-  const handleSectionTitleBlur = (item) => (event) => {
-    debugger;
-    const sectionIndex = sections.findIndex(
-      (s) => s.sectionTitle === item.sectionTitle
-    );
-    const sectionsCopy = utils.copyOf(sections);
-
-    sectionsCopy[sectionIndex].sectionTitle = event.target.value;
-    setSections(sectionsCopy);
-  };
 
   function evaluateQuestionControl(question) {
     const questionJsx = (
@@ -107,7 +108,7 @@ export const PollQuestionnaire = () => {
         return buildTextFieldOption(question.answers);
 
       case "radioButton":
-        return buildRadioButtonOption(question.answers);
+        return buildRadioButtonOption(question, question.answers);
 
       default:
         return <div />;
@@ -121,8 +122,10 @@ export const PollQuestionnaire = () => {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox checked name="checkedA" />}
-                label={a.answerDescription}
+                control={<Checkbox name={a.answerDescription} />}
+                          label={a.answerDescription}
+                          //checked={a.selectedValue}
+                          onChange={handleOnChangeCkeckBox(a)}
               />
             </Grid>
           </Grid>
@@ -131,7 +134,40 @@ export const PollQuestionnaire = () => {
     }
   };
 
-  const buildRadioButtonOption = (answers) => {
+  const handleOnChangeTextField = (item) => (event) => {
+    
+    const selectedQuestion = selectedSection.questions.find(f=>f.formQuestionId === item.formQuestionId);
+    if(utils.evaluateObject(selectedQuestion)){
+
+      const selectedAnswer = selectedQuestion.answers.find(f=>f.formAnswerId === item.formAnswerId);
+      selectedAnswer.selectedValue = event.target.value;
+    }
+    const copySection = {...selectedSection };
+    setSelectedSection(copySection);
+    console.log(copySection);
+  };
+
+  const handleOnChangeCkeckBox = (item) => (event) => {
+    
+    const selectedQuestion = selectedSection.questions.find(f=>f.formQuestionId === item.formQuestionId);
+    if(utils.evaluateObject(selectedQuestion)){
+
+      selectedQuestion.answers.forEach(element => {
+        debugger;
+        if (element.formAnswerId === item.formAnswerId) {
+          element.selectedValue = event.target.checked;
+        } 
+      });
+    }
+    const copySection = {...selectedSection };
+    setSelectedSection(copySection);
+    console.log(copySection);
+  };
+
+ 
+
+  const buildRadioButtonOption = (question, answers) => {
+      question.radioButtonValue ='';
     return answers.map((item, index) => {
       return (
         <Grid container spacing={3}>
@@ -140,15 +176,14 @@ export const PollQuestionnaire = () => {
               <RadioGroup
                 aria-label="options"
                 name="option-control"
-                value={item.answerDescription}
-                onChange={handleChange}
+                onChange={handleOnSelectedRadioButton(item)}
               >
                 <FormControlLabel
                   key={index}
-                  value={index}
-                  control={<Radio />}
+                  value={item.formAnswerId}
+                  control=
+                  {<Radio  checked={item.selectedValue ==='1' }/>}
                   label={item.answerDescription}
-                  // onClick={handleEditOption(index)}
                 />
               </RadioGroup>
             </FormControl>
@@ -158,6 +193,41 @@ export const PollQuestionnaire = () => {
     });
   };
 
+  const handleOnSelectedRadioButton = (item) => (event) => {
+    
+    const selectedQuestion = selectedSection.questions.find(f=>f.formQuestionId === item.formQuestionId);
+    if(utils.evaluateObject(selectedQuestion)){
+      
+      const selectedValue = event.target.value;
+
+      selectedQuestion.answers.forEach(element => {
+        if (element.formAnswerId.toString() === selectedValue) {
+          element.selectedValue = "1";
+        } else{
+          element.selectedValue = "";
+        }
+      });
+    }
+    const copySection = {...selectedSection };
+    setSelectedSection(copySection);
+  };
+
+  const handleOnSavePoll= async ()=>{
+    
+    form.userId="testUSer";
+    const request = {
+      form: form,
+    };
+    const response = await restClient.httpPost("/Polls", request);
+
+    if (utils.hasErrorResponse(response)) {
+      return;
+    }
+    toast.success("Data saved successfully");
+    setForm({});
+    
+  }
+
   const buildTextFieldOption = (answers) => {
     if (utils.evaluateArray(answers)) {
       return answers.map((a) => {
@@ -166,11 +236,14 @@ export const PollQuestionnaire = () => {
             <Grid item xs={12}>
             <TextField
               id='poll-question'
-              label="Multiline"
               multiline
               rowsMax={4}
-              value={a.answerDescription}
-              //onChange={handleChange}
+              placeholder={a.answerDescription}
+              value={a.selectedValue}
+              onChange={handleOnChangeTextField(a)}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             </Grid>
           </Grid>
@@ -182,6 +255,7 @@ export const PollQuestionnaire = () => {
   const renderActions =[{
       label: 'save',
       startIcon:  <SaveIcon/>,
+      onClick: handleOnSavePoll
       
     }];
 
@@ -193,7 +267,6 @@ export const PollQuestionnaire = () => {
       id="form-title"
       variant="outlined"
       placeholder=""
-      onBlur={handleSectionTitleBlur(item)}
     />
   );
 
@@ -210,8 +283,9 @@ export const PollQuestionnaire = () => {
               InputLabelProps={{
                 shrink: true,
               }}
+
               value={form && form.title}
-              onChange={handleChange("title")}
+              //onChange={handleChange("title")}
             />
           </div>
 
@@ -225,7 +299,7 @@ export const PollQuestionnaire = () => {
               label="Form Description"
               value={form && form.description}
               variant="outlined"
-              onChange={handleChange("description")}
+              //onChange={handleChange("description")}
             />
           </div>
         </Grid>

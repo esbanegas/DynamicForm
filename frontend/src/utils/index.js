@@ -134,6 +134,7 @@ export class utils {
   };
 
   static hasErrorResponse = response => {
+
     const fieldErrors = [
       'exceptionMessage',
       'erroresValidacion',
@@ -142,6 +143,7 @@ export class utils {
       'mensajeError',
       'message',
     ];
+    debugger;
 
     if (!response) {
       return false;
