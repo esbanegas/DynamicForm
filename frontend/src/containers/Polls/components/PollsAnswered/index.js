@@ -15,8 +15,10 @@ import SaveIcon from "@material-ui/icons/Save";
 import CardControl from "../../../../controls/Card";
 import { ListControl } from "../../../../controls/List";
 import { utils } from "../../../../utils";
-import { restClient } from "./../../../../services/restClient";
+import { restClient } from "../../../../services/restClient";
 import { toast } from "react-toastify";
+import { ButtonPrimary } from "../../../../controls/Button";
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,13 +36,17 @@ const useStyles = makeStyles((theme) => ({
   },
   select:{
     width: "100%",
+  },
+  searchUserButton:{
+    width:"100%"
   }
+  
 }));
 
-export const PollQuestionnaire = () => {
-  const [form, setForm] = useState();
+export const PollsAnswered = () => {
+  const [poll, setPoll] = useState();
   
-  const [listFormId, setListFormId]= useState([]);
+  const [listPollsId, setListPollId]= useState([]);
 
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState({});
@@ -49,72 +55,68 @@ export const PollQuestionnaire = () => {
   
   const classes = useStyles();
 
-  useEffect(() => {
-    
-        fetchListForms();
-  }, []);
 
   useEffect(() => {
     
     console.log(selectedSection);
 }, [selectedSection]);
 
-  const fetchListForms = async () => {
+   
+  const fetchSelectedPoll = async (pollId) => {
     const request = {
-    
+      pollId: pollId,
     };
-    const response = await restClient.httpGet("/Forms/list-formsId", request);
+    const response = await restClient.httpGet("/Polls", request);
 
     if (utils.hasErrorResponse(response)) {
       return;
     }
     if (!utils.evaluateArray(response)) {
-      toast.warn("Forms was not found !!");
-      return;
-    }
-    setListFormId(response);
-    const firstFormId = response[0];
-    fetchSelectedForm(firstFormId);
-  };
-
-  
-  const fetchSelectedForm = async (formId) => {
-    const request = {
-      formId: formId,
-    };
-    const response = await restClient.httpGet("/Forms", request);
-
-    if (utils.hasErrorResponse(response)) {
-      return;
-    }
-    if (!utils.evaluateArray(response)) {
-      toast.warn("Form was not found !!");
+      toast.warn("Poll was not found !!");
       return;
     }
 
-    const firstForm = response[0];
-    const sections = firstForm.sections;
-    const firstSection =sections[0];
-    setForm(firstForm);
+    const firstPoll = response[0];
+    const sections = firstPoll.sections;
+    const firstSection = sections[0];
+    setPoll(firstPoll);
     setSections(sections);
     setSelectedSection(firstSection);
+  };
 
-    console.log(firstForm);
-    console.log(sections);
-    
+  function hanldeChecked(selectedValue){
+    debugger;
+    return selectedValue ==="true";
+  }
+
+  const onSearchUser = async () => {
+    const request = {
+      userId: userId
+    };
+    const response = await restClient.httpGet("/Polls/pollsId-by-user", request);
+
+    if (utils.hasErrorResponse(response)) {
+      return;
+    }
+    if (!utils.evaluateArray(response)) {
+      toast.warn("Polls for selected user was not found");
+      return;
+    }
+
+    setListPollId(response);
+    fetchSelectedPoll(response[0]);
+ 
   };
 
   const handleOnChangeFormId = (event) => {
     const value = event.target.value;
-    fetchSelectedForm(value);
+    fetchSelectedPoll(value);
   };
 
   const handleOnChangeUserId = (event) => {
     const value = event.target.value;
     setUserId(value);
   };
-
-
 
   const handleSelectedSection = (section) => setSelectedSection(section);
 
@@ -158,7 +160,7 @@ export const PollQuestionnaire = () => {
               <FormControlLabel
                 control={<Checkbox name={a.answerDescription} />}
                           label={a.answerDescription}
-                          //checked={a.selectedValue}
+                          checked={hanldeChecked(a.selectedValue)}
                           onChange={handleOnChangeCkeckBox(a)}
               />
             </Grid>
@@ -247,13 +249,13 @@ export const PollQuestionnaire = () => {
 
   const handleOnSavePoll= async ()=>{
     
-    if(!utils.evaluateObject(form)){
-      toast.warn("Select a form to answer");
+    if(!utils.evaluateObject(poll)){
+      toast.warn("Select a poll to answer");
       return;
     }
-    form.userId = userId;
+    poll.userId = userId;
     const request = {
-      form: form,
+      poll: poll,
     };
     const response = await restClient.httpPost("/Polls", request);
 
@@ -261,7 +263,7 @@ export const PollQuestionnaire = () => {
       return;
     }
     toast.success("Data saved successfully");
-    setForm({});
+    setPoll({});
     
   }
 
@@ -301,7 +303,7 @@ export const PollQuestionnaire = () => {
       className={classes.textField}
       fullWidth
       value={item && item.sectionTitle}
-      id="form-title"
+      id="poll-title"
       variant="outlined"
       placeholder=""
     />
@@ -313,18 +315,34 @@ export const PollQuestionnaire = () => {
 
       <Grid item xs={12}>
           <div className={classes.paper}>
+          <Grid container xs={12}>
+            <Grid item xs={8}>
             <TextField
-              fullWidth
-              id="form-userId"
-              label="UserId"
-              placeholder="Enter your user Id"
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={userId}
-              onChange={handleOnChangeUserId}
+                fullWidth
+                id="form-userId"
+                label="UserId"
+                placeholder="Enter your user Id"
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={userId}
+                onChange={handleOnChangeUserId}
+              />
+            </Grid>
+            <Grid item xs={4} >
+            <div className="SearchButton" style={{paddingTop:"5%"}} >
+            <ButtonPrimary  startIcon= {<SearchIcon/>}
+            label= ""
+            onClick={onSearchUser}
+            className={classes.textField}
             />
+            </div>
+            
+            </Grid>
+            
+          </Grid>
+         
           </div>
 
           <div className={classes.paper}>
@@ -340,10 +358,10 @@ export const PollQuestionnaire = () => {
                   id: 'formId',
                 }}  
                >
-                  {listFormId && listFormId.map(f=>{
+                  {listPollsId && listPollsId.map(f=>{
                     return <option value={f}>{f}</option>
                   })}
-              </Select>
+              </Select >
           </FormControl>
           </div>
         </Grid>
@@ -352,14 +370,14 @@ export const PollQuestionnaire = () => {
           <div className={classes.paper}>
             <TextField
               fullWidth
-              id="form-title"
+              id="poll-title"
               label="Form Title"
               variant="outlined"
               InputLabelProps={{
                 shrink: true,
               }}
 
-              value={form && form.title}
+              value={poll && poll.title}
               //onChange={handleChange("title")}
             />
           </div>
@@ -370,9 +388,9 @@ export const PollQuestionnaire = () => {
                 shrink: true,
               }}
               fullWidth
-              id="form-description"
+              id="poll-description"
               label="Form Description"
-              value={form && form.description}
+              value={poll && poll.description}
               variant="outlined"
               //onChange={handleChange("description")}
             />

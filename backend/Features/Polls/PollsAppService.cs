@@ -27,8 +27,17 @@ namespace backend.Features.Polls
             {
                 polls = await _dynamicFormDataContext.Polls.ToListAsync();
             }
+            var data = BuildPollTemplateDto(polls);
 
-            return BuildPollTemplateDto(polls);
+            return data;
+        }
+
+        public async Task<List<int>> GetPollsId(GetPollBUserRequest request)
+        {
+            IEnumerable<Poll> polls;
+            polls = await _dynamicFormDataContext.Polls.Where(w=>w.UserId==request.UserId).ToListAsync();
+
+            return polls.Select(s=>s.PollId).ToList();
         }
 
         private List<PollTemplateDto> BuildPollTemplateDto(IEnumerable<Poll> polls)
@@ -66,7 +75,7 @@ namespace backend.Features.Polls
             Poll newPoll = new Poll
             {
                 Title = pollDto.Title,
-                UserId= pollDto.UserId,
+                UserId = pollDto.UserId,
                 PollSections = BuildPollSection(pollDto.Sections)
             };
 
@@ -98,6 +107,7 @@ namespace backend.Features.Polls
             return answersDto.Select(a => new PollAnswer
             {
                 Order = a.Order,
+                SelectedValue = a.SelectedValue,
                 AnswerDescription = a.AnswerDescription,
 
             }).ToList();
@@ -143,9 +153,10 @@ namespace backend.Features.Polls
                     return false;
                 }
 
-                bool hasAnAnswerSelected = question.Answers.Any(a=>!string.IsNullOrWhiteSpace(a.SelectedValue));
+                bool hasAnAnswerSelected = question.Answers.Any(a => !string.IsNullOrWhiteSpace(a.SelectedValue));
 
-                if(!hasAnAnswerSelected){
+                if (!hasAnAnswerSelected)
+                {
                     validationMessage = $"Select an answer to the question <{question.QuestionDescription}>";
                     return false;
                 }

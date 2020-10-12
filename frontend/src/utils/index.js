@@ -143,7 +143,6 @@ export class utils {
       'mensajeError',
       'message',
     ];
-    debugger;
 
     if (!response) {
       return false;

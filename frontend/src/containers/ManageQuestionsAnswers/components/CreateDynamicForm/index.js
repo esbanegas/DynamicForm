@@ -42,7 +42,6 @@ export const CreateDynamicForm = () => {
   const handleSelectedSection = (section) => setSelectedSection(section);
 
   const handleSectionTitleBlur = (item) => (event) => {
-    debugger;
     const sectionIndex = sections.findIndex(
       (s) => s.sectionTitle === item.sectionTitle
     );

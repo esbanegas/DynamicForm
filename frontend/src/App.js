@@ -27,8 +27,8 @@ const App = () => {
     <div>
         <ThemeProvider theme={theme}>
           <div className="App">
-            {/* <Polls /> */}
-            <ManageQuestionsAnswers/>
+            <Polls />
+            {/* <ManageQuestionsAnswers/> */}
           </div>
         </ThemeProvider>
         <ToastContainer style={{ zIndex: '2147483647' }} />

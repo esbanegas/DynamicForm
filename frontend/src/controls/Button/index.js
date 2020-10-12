@@ -20,6 +20,7 @@ export const ButtonPrimary = ({
   component,
   startIcon,
   endIcon,
+  
 }) => {
   const props = isButtonText ? {} : { variant: "contained" };
 
@@ -79,7 +80,7 @@ export const ButtonUploadImage = ({ isIconButton, label, onClick }) => {
   const classes = useStyles();
 
   const onChangeImage = (event, file) => {
-    debugger;
+    
   };
 
   return (
