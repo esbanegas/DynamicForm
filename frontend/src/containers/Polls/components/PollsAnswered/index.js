@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
+import { useReactToPrint } from 'react-to-print';
 import {
   TextField,
   makeStyles,
@@ -9,16 +10,18 @@ import {
   FormControl,
   Radio,
   Select,
-  InputLabel 
+  InputLabel,
+  IconButton
 } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
+import PrintIcon from "@material-ui/icons/Print";
 import CardControl from "../../../../controls/Card";
 import { ListControl } from "../../../../controls/List";
 import { utils } from "../../../../utils";
 import { restClient } from "../../../../services/restClient";
 import { toast } from "react-toastify";
-import { ButtonPrimary } from "../../../../controls/Button";
 import SearchIcon from '@material-ui/icons/Search';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +64,11 @@ export const PollsAnswered = () => {
     console.log(selectedSection);
 }, [selectedSection]);
 
+const componentRef = useRef();
+const handlePrint = useReactToPrint({
+  content: () => componentRef.current,
+  documentTitle: `${userId}-Forms`
+});
    
   const fetchSelectedPoll = async (pollId) => {
     const request = {
@@ -311,7 +319,7 @@ export const PollsAnswered = () => {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} ref={componentRef} >
 
       <Grid item xs={12}>
           <div className={classes.paper}>
@@ -330,14 +338,17 @@ export const PollsAnswered = () => {
                 onChange={handleOnChangeUserId}
               />
             </Grid>
-            <Grid item xs={4} >
-            <div className="SearchButton" style={{paddingTop:"5%"}} >
-            <ButtonPrimary  startIcon= {<SearchIcon/>}
-            label= ""
-            onClick={onSearchUser}
-            className={classes.textField}
-            />
-            </div>
+            <Grid item xs={2} >
+
+            <IconButton color="secondary" aria-label="search user" onClick={onSearchUser}>
+              <SearchIcon />
+            </IconButton>
+                      
+            </Grid>
+            <Grid item xs={2} >
+            <IconButton color="secondary" aria-label="print" onClick={handlePrint}>
+              <PrintIcon />
+            </IconButton>
             
             </Grid>
             
@@ -406,7 +417,7 @@ export const PollsAnswered = () => {
             />
 
             <CardControl title="Questions"
-            actions={renderActions}
+            
             >
               {selectedSection &&
                 selectedSection.questions &&
