@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.DataContext;
+using backend.Features.Forms.Dto;
 using backend.Features.Polls.Dto;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,8 +27,17 @@ namespace backend.Features.Polls
             {
                 polls = await _dynamicFormDataContext.Polls.ToListAsync();
             }
+            var data = BuildPollTemplateDto(polls);
 
-            return BuildPollTemplateDto(polls);
+            return data;
+        }
+
+        public async Task<List<int>> GetPollsId(GetPollBUserRequest request)
+        {
+            IEnumerable<Poll> polls;
+            polls = await _dynamicFormDataContext.Polls.Where(w=>w.UserId==request.UserId).ToListAsync();
+
+            return polls.Select(s=>s.PollId).ToList();
         }
 
         private List<PollTemplateDto> BuildPollTemplateDto(IEnumerable<Poll> polls)
@@ -45,12 +55,12 @@ namespace backend.Features.Polls
         public async Task<string> CretaePoll(PostPollRequest request)
         {
             if (request == null) throw new Exception(nameof(request));
-            if (request.Poll == null) throw new Exception(nameof(request.Poll));
+            if (request.Form == null) throw new Exception(nameof(request.Form));
 
             string validationMessage;
-            if (ValidNewPollData(request.Poll, out validationMessage))
+            if (ValidNewPollData(request.Form, out validationMessage))
             {
-                var newPoll = BuildNewPoll(request.Poll);
+                var newPoll = BuildNewPoll(request.Form);
                 _dynamicFormDataContext.Polls.Add(newPoll);
 
                 await _dynamicFormDataContext.SaveChangesAsync();
@@ -60,18 +70,19 @@ namespace backend.Features.Polls
 
         }
 
-        private Poll BuildNewPoll(PollTemplateDto pollDto)
+        private Poll BuildNewPoll(FormTemplateDto pollDto)
         {
             Poll newPoll = new Poll
             {
                 Title = pollDto.Title,
+                UserId = pollDto.UserId,
                 PollSections = BuildPollSection(pollDto.Sections)
             };
 
             return newPoll;
         }
 
-        private List<PollSection> BuildPollSection(List<PollSectionDto> sectionsDto)
+        private List<PollSection> BuildPollSection(List<FormSectionDto> sectionsDto)
         {
             return sectionsDto.Select(s => new PollSection
             {
@@ -80,7 +91,7 @@ namespace backend.Features.Polls
             }).ToList();
         }
 
-        private List<PollQuestion> BuildQuestions(List<PollQuestionDto> questionsDto)
+        private List<PollQuestion> BuildQuestions(List<FormQuestionDto> questionsDto)
         {
             return questionsDto.Select(s => new PollQuestion
             {
@@ -91,17 +102,18 @@ namespace backend.Features.Polls
             }).ToList();
         }
 
-        private List<PollAnswer> BuildAnswer(List<PollAnswerDto> answersDto)
+        private List<PollAnswer> BuildAnswer(List<FormAnswerDto> answersDto)
         {
             return answersDto.Select(a => new PollAnswer
             {
                 Order = a.Order,
+                SelectedValue = a.SelectedValue,
                 AnswerDescription = a.AnswerDescription,
 
             }).ToList();
         }
 
-        private bool ValidNewPollData(PollTemplateDto poll, out string validationMessage)
+        private bool ValidNewPollData(FormTemplateDto poll, out string validationMessage)
         {
             validationMessage = string.Empty;
             if (string.IsNullOrWhiteSpace(poll.UserId))
@@ -141,9 +153,10 @@ namespace backend.Features.Polls
                     return false;
                 }
 
-                bool hasAnAnswerSelected = question.Answers.Any(a=>!string.IsNullOrWhiteSpace(a.SelectedValue));
+                bool hasAnAnswerSelected = question.Answers.Any(a => !string.IsNullOrWhiteSpace(a.SelectedValue));
 
-                if(!hasAnAnswerSelected){
+                if (!hasAnAnswerSelected)
+                {
                     validationMessage = $"Select an answer to the question <{question.QuestionDescription}>";
                     return false;
                 }

@@ -19,7 +19,13 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<List<FormTemplateDto>> GetForms([FromHeader] GetFormRequest request)
         {
-            return await _formsAppService.GetFormsId(request);
+            return await _formsAppService.GetForms(request);
+        }
+
+         [HttpGet("list-formsId")]
+        public async Task<List<int>> GetFormsId()
+        {
+            return await _formsAppService.GetFormsId();
         }
 
         [HttpPost]

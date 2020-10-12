@@ -15,7 +15,7 @@ namespace backend.Features.Forms
         {
             _dynamicFormDataContext = dynamicFormDataContext;
         }
-        public async Task<List<FormTemplateDto>> GetFormsId(GetFormRequest request)
+        public async Task<List<FormTemplateDto>> GetForms(GetFormRequest request)
         {
             IEnumerable<Form> forms;
             if (request.FormId > 0)
@@ -28,6 +28,15 @@ namespace backend.Features.Forms
             }
 
             return BuildFormTemplateDto(forms);
+        }
+
+        public async Task<List<int>> GetFormsId()
+        {
+            IEnumerable<Form> forms;
+            
+            forms = await _dynamicFormDataContext.Forms.ToListAsync();
+        
+            return forms.Select(s=>s.FormId).ToList();
         }
 
         private List<FormTemplateDto> BuildFormTemplateDto(IEnumerable<Form> forms)

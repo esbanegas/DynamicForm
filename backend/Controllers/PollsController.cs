@@ -22,10 +22,17 @@ namespace backend.Controllers
             return await _pollsAppService.GetPolls(request);
         }
 
+         [HttpGet("pollsId-by-user")]
+        public async Task<List<int>> GetPolls([FromHeader] GetPollBUserRequest request)
+        {
+            return await _pollsAppService.GetPollsId(request);
+        }
+
         [HttpPost]
-        public  async Task<string> CreateForm(PostPollRequest request)
+        public  async Task<string> CreateForm([FromBody]PostPollRequest request)
         {
             return await _pollsAppService.CretaePoll(request);
+            
         }
     }
        

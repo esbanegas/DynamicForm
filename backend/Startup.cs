@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using backend.DataContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,24 +27,17 @@ namespace backend
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers();
+        {   
+            services.AddMvc().AddNewtonsoftJson();
+            services.AddCors();
+
+            services.AddMvc();
+
             services.AddServiceDependency();
             services.AddDbContext<DynamicFormDataContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DynamicFormDataContext"));
             });
-
-            services.AddCors(options =>
-                            {
-                                options.AddPolicy("AnyOrigin", builder =>
-                                {
-                                    builder
-                                        .AllowAnyOrigin()
-                                        .AllowAnyMethod();
-                                });
-                            });
-
 
             SwaggerConfig.AddSwagger(services);
         }
@@ -55,8 +49,10 @@ namespace backend
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("AnyOrigin");
-            
+            //app.UseCors("AnyOrigin");
+            app.UseCors(
+                options => options.SetIsOriginAllowed(x => _ = true).AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+            );
             app.UseHttpsRedirection();
 
             app.UseRouting();
