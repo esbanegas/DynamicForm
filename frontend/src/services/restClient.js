@@ -112,10 +112,7 @@ export class restClient {
     if (request) {
       urlparam = `&${objectParametize(request, false)}`;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> c70c0671b881e1d0c6a7e63234560556a7ee3d35
     const paramUrl = `${url}?accept: application/json${urlparam}`;
     return fetch(`${urlBase}${paramUrl}`)
       .catch(error => {

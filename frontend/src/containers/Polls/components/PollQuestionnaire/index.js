@@ -50,32 +50,8 @@ export const PollQuestionnaire = () => {
   const classes = useStyles();
 
   useEffect(() => {
-<<<<<<< HEAD
-    const fetchData = async () => {
-      const request = {
-        formId: 1,
-      };
-      const response = await restClient.httpGet("/Forms", request);
-
-      if (utils.hasErrorResponse(response)) {
-        return;
-      }
-      if (!utils.evaluateArray(response)) {
-        toast.warn("Form was not found !!");
-        return;
-      }
-
-      const firstForm = response[0];
-      const section = firstForm.sections;
-      setForm(firstForm);
-      setSections(section);
-    };
-
-    fetchData();
-=======
     
         fetchListForms();
->>>>>>> c70c0671b881e1d0c6a7e63234560556a7ee3d35
   }, []);
 
   useEffect(() => {
@@ -108,13 +84,6 @@ export const PollQuestionnaire = () => {
     };
     const response = await restClient.httpGet("/Forms", request);
 
-<<<<<<< HEAD
-  const handleSectionTitleBlur = (item) => (event) => {
-    const sectionIndex = sections.findIndex(
-      (s) => s.sectionTitle === item.sectionTitle
-    );
-    const sectionsCopy = utils.copyOf(sections);
-=======
     if (utils.hasErrorResponse(response)) {
       return;
     }
@@ -129,7 +98,6 @@ export const PollQuestionnaire = () => {
     setForm(firstForm);
     setSections(sections);
     setSelectedSection(firstSection);
->>>>>>> c70c0671b881e1d0c6a7e63234560556a7ee3d35
 
     console.log(firstForm);
     console.log(sections);
