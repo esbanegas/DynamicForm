@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
     padding: "1rem",
+    height: '100%'
   },
 
   paper: {
@@ -42,14 +43,15 @@ export const CreateDynamicForm = () => {
   const handleSelectedSection = (section) => setSelectedSection(section);
 
   const handleSectionTitleBlur = (item) => (event) => {
-    debugger;
     const sectionIndex = sections.findIndex(
       (s) => s.sectionTitle === item.sectionTitle
     );
+
     const sectionsCopy = utils.copyOf(sections);
 
     sectionsCopy[sectionIndex].sectionTitle = event.target.value;
     setSections(sectionsCopy);
+    setSelectedSection(sectionsCopy[sectionIndex]);
   };
 
   const onRenderSection = (item) => (
@@ -106,7 +108,8 @@ export const CreateDynamicForm = () => {
 
             <AddControl
               selectedSection={selectedSection}
-              setSelectedSection={setSelectedSection}
+              setSections={setSections}
+              sections={sections}
             />
           </Grid>
         )}

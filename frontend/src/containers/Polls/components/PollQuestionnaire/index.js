@@ -41,7 +41,6 @@ export const PollQuestionnaire = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    debugger;
     const fetchData = async () => {
       const request = {
         formId: 1,
@@ -56,7 +55,6 @@ export const PollQuestionnaire = () => {
         return;
       }
 
-      debugger;
       const firstForm = response[0];
       const section = firstForm.sections;
       setForm(firstForm);
@@ -73,7 +71,6 @@ export const PollQuestionnaire = () => {
   const handleSelectedSection = (section) => setSelectedSection(section);
 
   const handleSectionTitleBlur = (item) => (event) => {
-    debugger;
     const sectionIndex = sections.findIndex(
       (s) => s.sectionTitle === item.sectionTitle
     );

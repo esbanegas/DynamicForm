@@ -25,7 +25,7 @@ export const RadioButtonTemplate = ({ isCreateForm, onSelectAnswers }) => {
 
     setAnswers(newAnswers);
 
-    // onSelectAnswers(newAnswers);
+    onSelectAnswers(newAnswers);
   };
 
   const handleEditOption = (index) => () => {
@@ -33,6 +33,7 @@ export const RadioButtonTemplate = ({ isCreateForm, onSelectAnswers }) => {
 
     answersCopy[index].edit = true;
 
+    onSelectAnswers(answersCopy);
     setAnswers(answersCopy);
   };
 
@@ -42,6 +43,7 @@ export const RadioButtonTemplate = ({ isCreateForm, onSelectAnswers }) => {
     answersCopy[index].edit = false;
     answersCopy[index].label = event.target.value;
 
+    onSelectAnswers(answersCopy);
     setAnswers(answersCopy);
   };
 

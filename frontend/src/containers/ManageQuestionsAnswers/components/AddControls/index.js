@@ -14,11 +14,8 @@ import { utils } from "../../../../utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "white",
-    border: "1px solid black",
-    width: "40rem",
-    padding: "1rem",
-    overflow: "auto",
+    position: 'absolute',
+    height: "100%",
   },
   paper: {
     padding: theme.spacing(1),
@@ -31,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const AddControl = ({ selectedSection, setSelectedSection }) => {
-  const [questions, setQuestions] = useState([]);
+export const AddControl = ({ selectedSection, sections, setSections }) => {
+  const [questions, setQuestions] = useState(selectedSection.questions || []);
   const [selectedQuestion, setSelectedQuestion] = useState({});
 
   const classes = useStyles();
@@ -56,10 +53,19 @@ export const AddControl = ({ selectedSection, setSelectedSection }) => {
   ];
 
   const handleSelectedControl = (control) => () => {
-    setQuestions([
+    const newQuestions = [
       ...questions,
       { questionDescription: "", answerType: control.key },
-    ]);
+    ];
+
+    const selectedSectionItem = sections.find(
+      (s) => s.sectionTitle === selectedSection.sectionTitle
+    );
+
+    selectedSectionItem["questions"] = newQuestions;
+    // selectedSection['questions'] = newQuestions;
+
+    setQuestions(newQuestions);
   };
 
   const handleQuestionBlur = (index) => (event) => {
@@ -87,13 +93,17 @@ export const AddControl = ({ selectedSection, setSelectedSection }) => {
         : { ...s }
     );
 
-    debugger
+    const selectedSectionItem = sections.find(
+      (s) => s.sectionTitle === selectedSection.sectionTitle
+    );
+
+    selectedSectionItem["questions"] = questionsCopy;
 
     setQuestions(questionsCopy);
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <CardControl title="Questions">
         {questions.map((question, index) => (
           <div
@@ -122,9 +132,11 @@ export const AddControl = ({ selectedSection, setSelectedSection }) => {
         ))}
       </CardControl>
 
-      <IconButton aria-label="delete">
-        <AddIcon />
-      </IconButton>
+      <div>
+        <IconButton aria-label="delete">
+          <AddIcon />
+        </IconButton>
+      </div>
 
       <div
         style={{

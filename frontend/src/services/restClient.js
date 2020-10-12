@@ -109,7 +109,7 @@ export class restClient {
     if (request) {
       urlparam = `&${objectParametize(request, false)}`;
     }
-debugger;
+
     const paramUrl = `${url}?accept: application/json${urlparam}`;
     return fetch(`${urlBase}${paramUrl}`)
       .catch(error => {
