@@ -32,12 +32,12 @@ namespace backend.Features.Polls
             return data;
         }
 
-        public async Task<List<int>> GetPollsId(GetPollBUserRequest request)
+        public async Task<List<PollTemplateDto>> GetPollsId(GetPollBUserRequest request)
         {
             IEnumerable<Poll> polls;
             polls = await _dynamicFormDataContext.Polls.Where(w=>w.UserId==request.UserId).ToListAsync();
 
-            return polls.Select(s=>s.PollId).ToList();
+            return polls.Select(s=>new PollTemplateDto {PollId = s.PollId, Title = s.Title, Description = s.Description}).ToList();
         }
 
         private List<PollTemplateDto> BuildPollTemplateDto(IEnumerable<Poll> polls)
@@ -47,6 +47,7 @@ namespace backend.Features.Polls
                 PollId = f.PollId,
                 Title = f.Title,
                 UserId = f.UserId,
+                Description = f.Description,
                 Sections = PollSectionDto.From(f.PollSections)
 
             }).ToList();

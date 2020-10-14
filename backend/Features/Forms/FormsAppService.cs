@@ -30,13 +30,13 @@ namespace backend.Features.Forms
             return BuildFormTemplateDto(forms);
         }
 
-        public async Task<List<int>> GetFormsId()
+        public async Task<List<FormTemplateDto>> GetFormsId()
         {
             IEnumerable<Form> forms;
             
             forms = await _dynamicFormDataContext.Forms.ToListAsync();
         
-            return forms.Select(s=>s.FormId).ToList();
+            return forms.Select(s=> new FormTemplateDto{FormId= s.FormId, Title=s.Title, Description = s.Description }).ToList();
         }
 
         private List<FormTemplateDto> BuildFormTemplateDto(IEnumerable<Form> forms)

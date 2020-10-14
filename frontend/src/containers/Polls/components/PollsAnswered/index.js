@@ -13,7 +13,6 @@ import {
   InputLabel,
   IconButton
 } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
 import PrintIcon from "@material-ui/icons/Print";
 import CardControl from "../../../../controls/Card";
 import { ListControl } from "../../../../controls/List";
@@ -112,7 +111,7 @@ const handlePrint = useReactToPrint({
     }
 
     setListPollId(response);
-    fetchSelectedPoll(response[0]);
+    fetchSelectedPoll(response[0].pollId);
  
   };
 
@@ -255,26 +254,6 @@ const handlePrint = useReactToPrint({
     setSelectedSection(copySection);
   };
 
-  const handleOnSavePoll= async ()=>{
-    
-    if(!utils.evaluateObject(poll)){
-      toast.warn("Select a poll to answer");
-      return;
-    }
-    poll.userId = userId;
-    const request = {
-      poll: poll,
-    };
-    const response = await restClient.httpPost("/Polls", request);
-
-    if (utils.hasErrorResponse(response)) {
-      return;
-    }
-    toast.success("Data saved successfully");
-    setPoll({});
-    
-  }
-
   const buildTextFieldOption = (answers) => {
     if (utils.evaluateArray(answers)) {
       return answers.map((a) => {
@@ -298,13 +277,6 @@ const handlePrint = useReactToPrint({
       });
     }
   };
-
-  const renderActions =[{
-      label: 'save',
-      startIcon:  <SaveIcon/>,
-      onClick: handleOnSavePoll
-      
-    }];
 
   const onRenderSection = (item) => (
     <TextField
@@ -360,7 +332,7 @@ const handlePrint = useReactToPrint({
           <FormControl variant="outlined" className={classes.select}  InputLabelProps={{
                   shrink: true,
                 }}>
-            <InputLabel shrink >FormId</InputLabel>
+            <InputLabel shrink >Form Title</InputLabel>
               <Select
                 native
                 onChange={handleOnChangeFormId}
@@ -370,7 +342,7 @@ const handlePrint = useReactToPrint({
                 }}  
                >
                   {listPollsId && listPollsId.map(f=>{
-                    return <option value={f}>{f}</option>
+                    return <option value={f.pollId}>{f.title}</option>
                   })}
               </Select >
           </FormControl>
@@ -380,30 +352,14 @@ const handlePrint = useReactToPrint({
         <Grid item xs={12}>
           <div className={classes.paper}>
             <TextField
-              fullWidth
-              id="poll-title"
-              label="Form Title"
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-
-              value={poll && poll.title}
-              //onChange={handleChange("title")}
-            />
-          </div>
-
-          <div className={classes.paper}>
-            <TextField
               InputLabelProps={{
                 shrink: true,
               }}
               fullWidth
               id="poll-description"
-              label="Form Description"
+              label="poll Description"
               value={poll && poll.description}
               variant="outlined"
-              //onChange={handleChange("description")}
             />
           </div>
         </Grid>
