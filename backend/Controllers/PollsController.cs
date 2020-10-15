@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class PollsController : ControllerBase
@@ -23,7 +24,7 @@ namespace backend.Controllers
         }
 
          [HttpGet("pollsId-by-user")]
-        public async Task<List<int>> GetPolls([FromHeader] GetPollBUserRequest request)
+        public async Task<List<PollTemplateDto>> GetPolls([FromHeader] GetPollBUserRequest request)
         {
             return await _pollsAppService.GetPollsId(request);
         }

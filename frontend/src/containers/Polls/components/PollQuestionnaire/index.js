@@ -256,13 +256,15 @@ export const PollQuestionnaire = () => {
       form: form,
     };
     const response = await restClient.httpPost("/Polls", request);
-
-    if (utils.hasErrorResponse(response)) {
+    
+    if (response) {
+      toast.warn(response);
       return;
     }
     toast.success("Data saved successfully");
     setForm({});
-    
+    setSections([]);
+    setSelectedSection({});
   }
 
   const buildTextFieldOption = (answers) => {
@@ -331,17 +333,17 @@ export const PollQuestionnaire = () => {
           <FormControl variant="outlined" className={classes.select}  InputLabelProps={{
                   shrink: true,
                 }}>
-            <InputLabel shrink >FormId</InputLabel>
+            <InputLabel shrink >Form Title</InputLabel>
               <Select
                 native
                 onChange={handleOnChangeFormId}
                 inputProps={{
-                  name: 'formId',
-                  id: 'formId',
+                  name: 'form-title',
+                  id: 'form-title',
                 }}  
                >
                   {listFormId && listFormId.map(f=>{
-                    return <option value={f}>{f}</option>
+                    return <option value={f.formId}>{f.title}</option>
                   })}
               </Select>
           </FormControl>
@@ -349,21 +351,6 @@ export const PollQuestionnaire = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <div className={classes.paper}>
-            <TextField
-              fullWidth
-              id="form-title"
-              label="Form Title"
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true,
-              }}
-
-              value={form && form.title}
-              //onChange={handleChange("title")}
-            />
-          </div>
-
           <div className={classes.paper}>
             <TextField
               InputLabelProps={{

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class FormsController : ControllerBase
@@ -23,7 +24,7 @@ namespace backend.Controllers
         }
 
          [HttpGet("list-formsId")]
-        public async Task<List<int>> GetFormsId()
+        public async Task<List<FormTemplateDto>> GetFormsId()
         {
             return await _formsAppService.GetFormsId();
         }

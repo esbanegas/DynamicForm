@@ -9,6 +9,7 @@ namespace backend.Features.Polls.Dto
        public string UserId { get; set; }      
        public string Title { get; set; }
 
+       public string Description { get; set; }
        public List<PollSectionDto> Sections {get;set;}
    } 
 }
