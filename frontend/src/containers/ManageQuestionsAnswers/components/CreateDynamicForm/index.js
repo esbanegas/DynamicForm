@@ -6,12 +6,13 @@ import { ButtonPrimary } from "../../../../controls/Button";
 import { ListControl } from "../../../../controls/List";
 import { utils } from "../../../../utils";
 import { AddControl } from "../AddControls";
+import { restClient } from "../../../../services/restClient";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
     padding: "1rem",
-    height: '100%'
+    height: "100%",
   },
 
   paper: {
@@ -52,6 +53,16 @@ export const CreateDynamicForm = () => {
     sectionsCopy[sectionIndex].sectionTitle = event.target.value;
     setSections(sectionsCopy);
     setSelectedSection(sectionsCopy[sectionIndex]);
+  };
+
+  const createFormClick = async () => {
+    const request = {
+      form: { ...form, sections },
+    };
+
+    // const response = await restClient.httpPost("/Forms", request);
+
+    debugger;
   };
 
   const onRenderSection = (item) => (
@@ -113,6 +124,12 @@ export const CreateDynamicForm = () => {
             />
           </Grid>
         )}
+
+        <ButtonPrimary
+          label="Create Form"
+          startIcon={<AddIcon />}
+          onClick={createFormClick}
+        />
       </Grid>
     </div>
   );

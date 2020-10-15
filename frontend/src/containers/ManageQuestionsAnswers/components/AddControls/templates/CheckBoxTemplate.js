@@ -6,15 +6,18 @@ import { utils } from "../../../../../utils";
 import { Checkbox, FormControlLabel, IconButton } from "@material-ui/core";
 import { ButtonPrimary } from "../../../../../controls/Button";
 
-export const CheckBoxTemplate = () => {
+export const CheckBoxTemplate = ({ onSelectAnswers }) => {
   const [answers, setAnswers] = useState([]);
   const [value, setValue] = useState("");
 
   const handleClick = () => {
-    setAnswers([
+    const newAnswers = [
       ...answers,
       { label: `Option ${answers.length + 1}`, value: "" },
-    ]);
+    ];
+
+    setAnswers(newAnswers);
+    onSelectAnswers(newAnswers);
   };
 
   const handleEditOption = (index) => () => {
@@ -22,6 +25,7 @@ export const CheckBoxTemplate = () => {
 
     answersCopy[index].edit = true;
 
+    onSelectAnswers(answersCopy);
     setAnswers(answersCopy);
   };
 
@@ -31,6 +35,7 @@ export const CheckBoxTemplate = () => {
     answersCopy[index].edit = false;
     answersCopy[index].label = event.target.value;
 
+    onSelectAnswers(answersCopy);
     setAnswers(answersCopy);
   };
 

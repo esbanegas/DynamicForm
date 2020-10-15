@@ -14,7 +14,7 @@ import { utils } from "../../../../utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'absolute',
+    position: "absolute",
     height: "100%",
   },
   paper: {
@@ -61,6 +61,8 @@ export const AddControl = ({ selectedSection, sections, setSections }) => {
     const selectedSectionItem = sections.find(
       (s) => s.sectionTitle === selectedSection.sectionTitle
     );
+
+    debugger;
 
     selectedSectionItem["questions"] = newQuestions;
     // selectedSection['questions'] = newQuestions;
@@ -125,7 +127,9 @@ export const AddControl = ({ selectedSection, sections, setSections }) => {
                   <RadioButtonTemplate onSelectAnswers={handleSelectAnswers} />
                 )}
                 {question.answerType === "textField" && <TextFieldTemplate />}
-                {question.answerType === "checkbox" && <CheckBoxTemplate />}
+                {question.answerType === "checkbox" && (
+                  <CheckBoxTemplate onSelectAnswers={handleSelectAnswers} />
+                )}
               </div>
             </div>
           </div>
@@ -138,27 +142,29 @@ export const AddControl = ({ selectedSection, sections, setSections }) => {
         </IconButton>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
-        {controls.map((control, index) => (
-          <div
-            style={{
-              display: "flex",
-              alignContent: "center",
-              marginLeft: index === 0 ? 0 : 5,
-            }}
-          >
-            <ButtonPrimary
-              startIcon={control.icon}
-              label={control.text}
-              onClick={handleSelectedControl(control)}
-            />
-          </div>
-        ))}
-      </div>
+      {selectedSection.sectionTitle && (
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          {controls.map((control, index) => (
+            <div
+              style={{
+                display: "flex",
+                alignContent: "center",
+                marginLeft: index === 0 ? 0 : 5,
+              }}
+            >
+              <ButtonPrimary
+                startIcon={control.icon}
+                label={control.text}
+                onClick={handleSelectedControl(control)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

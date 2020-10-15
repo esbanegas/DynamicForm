@@ -6,6 +6,7 @@ import { Polls } from "./containers/Polls";
 
 import "./App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { Main } from "./containers";
 
 const theme = createMuiTheme({
   palette: {
@@ -27,8 +28,9 @@ const App = () => {
     <div>
         <ThemeProvider theme={theme}>
           <div className="App">
+            <Main />
             {/* <Polls /> */}
-            <ManageQuestionsAnswers/>
+            {/* <ManageQuestionsAnswers/> */}
           </div>
         </ThemeProvider>
         <ToastContainer style={{ zIndex: '2147483647' }} />

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Grid, makeStyles, Tabs, Tab, Box,Typography } from "@material-ui/core";
 import { PollQuestionnaire } from "./components/PollQuestionnaire";
 import { PollsAnswered } from "./components/PollsAnswered";
+import { useAlert } from "react-alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
-    border: "1px solid black",
     width: "40rem",
     padding: "1rem",
     overflow: 'auto'
@@ -42,6 +42,8 @@ export const Polls = () => {
 
   const classes = useStyles();
   const [value, setValue] = useState(0);
+
+  const alert = useAlert();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

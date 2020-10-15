@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider as AlertProvider } from 'react-alert';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { AlertTemplateNotification } from './AlertNotification';
+import { alertNotificationOptions } from './AlertNotification/setting';
+
+import './index.css';
+
+const Root = () => (
+  <AlertProvider template={AlertTemplateNotification} {...alertNotificationOptions}>
+    <App />
+  </AlertProvider>
+)
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Root />
   </React.StrictMode>,
   document.getElementById('root')
 );

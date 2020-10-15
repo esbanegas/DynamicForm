@@ -15,7 +15,6 @@ import { CreateDynamicForm } from "./components/CreateDynamicForm";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
-    border: "1px solid black",
     width: "40rem",
     padding: "1rem",
     overflow: 'auto'

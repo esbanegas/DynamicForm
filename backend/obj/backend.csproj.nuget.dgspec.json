@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Local\\dynamicForm\\backend\\backend.csproj": {}
+    "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Local\\dynamicForm\\backend\\backend.csproj": {
+    "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Local\\dynamicForm\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\dtercero\\.nuget\\packages\\",
-        "outputPath": "C:\\Local\\dynamicForm\\backend\\obj\\",
+        "projectPath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\ebanegas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ebanegas\\Documents\\Erlin Samir Banegas\\DynamicFormGitHub\\DynamicForm\\backend\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\dtercero\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\ebanegas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

@@ -7,10 +7,12 @@ export const TextFieldTemplate = () => {
 
   const handleShortTextChange = (event, checked) => {
     setIsShortText(checked);
+    setIsLongText(false);
   };
 
   const handleLongTextChange = (event, checked) => {
     setIsLongText(checked);
+    setIsShortText(false);
   };
 
   return (
@@ -19,8 +21,7 @@ export const TextFieldTemplate = () => {
         fullWidth
         variant="outlined"
         placeholder="Respuesta"
-        multiline={isLongText || isShortText}
-        //   onChange={handleChange("title")}
+        multiline
       />
 
       <div>

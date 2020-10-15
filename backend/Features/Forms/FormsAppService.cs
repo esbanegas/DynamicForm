@@ -74,6 +74,7 @@ namespace backend.Features.Forms
             Form newForm = new Form
             {
                 Title = formDto.Title,
+                Description = formDto.Description,
                 FormSections = BuildFormSection(formDto.Sections)
             };
 
