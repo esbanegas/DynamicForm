@@ -7,6 +7,7 @@ import { ListControl } from "../../../../controls/List";
 import { utils } from "../../../../utils";
 import { AddControl } from "../AddControls";
 import { restClient } from "../../../../services/restClient";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,9 +61,12 @@ export const CreateDynamicForm = () => {
       form: { ...form, sections },
     };
 
-    // const response = await restClient.httpPost("/Forms", request);
+    const response = await restClient.httpPost("/Forms", request);
+   
+    if(response){
+      toast.warn(response);
+    }
 
-    debugger;
   };
 
   const onRenderSection = (item) => (

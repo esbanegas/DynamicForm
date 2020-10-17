@@ -12,6 +12,7 @@ namespace backend.Features.Forms.Dto
        public string AnswerType {get;set;}
 
        public int? Order {get;set;}
+       public int FormSectionId { get; set; }
 
        public List<FormAnswerDto> Answers {get;set;}
 
@@ -21,6 +22,7 @@ namespace backend.Features.Forms.Dto
                 AnswerType = q.AnswerType,
                 FormQuestionId = q.FormQuestionId,
                 Order = q.Order,
+                FormSectionId= q.FormSectionId,
                 QuestionDescription = q.QuestionDescription,
                 Answers = FormAnswerDto.From(q.FormAnswers)
             }).ToList();

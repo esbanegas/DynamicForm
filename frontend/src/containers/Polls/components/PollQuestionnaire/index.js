@@ -17,6 +17,8 @@ import { ListControl } from "../../../../controls/List";
 import { utils } from "../../../../utils";
 import { restClient } from "./../../../../services/restClient";
 import { toast } from "react-toastify";
+import { ButtonPrimary } from "../../../../controls/Button";
+import { Save } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,22 +44,13 @@ export const PollQuestionnaire = () => {
   
   const [listFormId, setListFormId]= useState([]);
 
-  const [sections, setSections] = useState([]);
-  const [selectedSection, setSelectedSection] = useState({});
-  
   const [userId, setUserId] = useState('');
   
   const classes = useStyles();
 
   useEffect(() => {
-    
         fetchListForms();
   }, []);
-
-  useEffect(() => {
-    
-    console.log(selectedSection);
-}, [selectedSection]);
 
   const fetchListForms = async () => {
     const request = {
@@ -93,14 +86,7 @@ export const PollQuestionnaire = () => {
     }
 
     const firstForm = response[0];
-    const sections = firstForm.sections;
-    const firstSection =sections[0];
     setForm(firstForm);
-    setSections(sections);
-    setSelectedSection(firstSection);
-
-    console.log(firstForm);
-    console.log(sections);
     
   };
 
@@ -115,8 +101,6 @@ export const PollQuestionnaire = () => {
   };
 
 
-
-  const handleSelectedSection = (section) => setSelectedSection(section);
 
   function evaluateQuestionControl(question) {
     const questionJsx = (
@@ -136,10 +120,10 @@ export const PollQuestionnaire = () => {
   const getDetailAnswers = (question) => {
     switch (question.answerType) {
       case "checkBox":
-        return buildCheckBoxOptions(question.answers);
+        return buildCheckBoxOptions(question,question.answers);
 
       case "textField":
-        return buildTextFieldOption(question.answers);
+        return buildTextFieldOption(question,question.answers);
 
       case "radioButton":
         return buildRadioButtonOption(question, question.answers);
@@ -149,7 +133,7 @@ export const PollQuestionnaire = () => {
     }
   };
 
-  const buildCheckBoxOptions = (answers) => {
+  const buildCheckBoxOptions = (question, answers) => {
     if (utils.evaluateArray(answers)) {
       return answers.map((a) => {
         return (
@@ -159,7 +143,7 @@ export const PollQuestionnaire = () => {
                 control={<Checkbox name={a.answerDescription} />}
                           label={a.answerDescription}
                           //checked={a.selectedValue}
-                          onChange={handleOnChangeCkeckBox(a)}
+                          onChange={handleOnChangeCkeckBox(a,question)}
               />
             </Grid>
           </Grid>
@@ -168,7 +152,9 @@ export const PollQuestionnaire = () => {
     }
   };
 
-  const handleOnChangeTextField = (item) => (event) => {
+  const handleOnChangeTextField = (item, question) => (event) => {
+    
+    let selectedSection = form.sections.find(f=>f.sectionId === question.formSectionId);
     
     const selectedQuestion = selectedSection.questions.find(f=>f.formQuestionId === item.formQuestionId);
     if(utils.evaluateObject(selectedQuestion)){
@@ -176,12 +162,13 @@ export const PollQuestionnaire = () => {
       const selectedAnswer = selectedQuestion.answers.find(f=>f.formAnswerId === item.formAnswerId);
       selectedAnswer.selectedValue = event.target.value;
     }
-    const copySection = {...selectedSection };
-    setSelectedSection(copySection);
-    console.log(copySection);
+    const copyForm = {...form}
+    setForm(copyForm);
   };
 
-  const handleOnChangeCkeckBox = (item) => (event) => {
+  const handleOnChangeCkeckBox = (item, question) => (event) => {
+    
+    let selectedSection = form.sections.find(f=>f.sectionId === question.formSectionId);
     
     const selectedQuestion = selectedSection.questions.find(f=>f.formQuestionId === item.formQuestionId);
     if(utils.evaluateObject(selectedQuestion)){
@@ -192,8 +179,8 @@ export const PollQuestionnaire = () => {
         } 
       });
     }
-    const copySection = {...selectedSection };
-    setSelectedSection(copySection);
+    const copyForm = {...form}
+    setForm(copyForm);
   };
 
  
@@ -208,7 +195,7 @@ export const PollQuestionnaire = () => {
               <RadioGroup
                 aria-label="options"
                 name="option-control"
-                onChange={handleOnSelectedRadioButton(item)}
+                onChange={handleOnSelectedRadioButton(item, question)}
               >
                 
                 <FormControlLabel
@@ -226,8 +213,9 @@ export const PollQuestionnaire = () => {
     });
   };
 
-  const handleOnSelectedRadioButton = (item) => (event) => {
-    
+  const handleOnSelectedRadioButton = (item, question) => (event) => {
+    debugger;
+    let selectedSection = form.sections.find(f=>f.sectionId === question.formSectionId);
     const selectedQuestion = selectedSection.questions.find(f=>f.formQuestionId === item.formQuestionId);
     if(utils.evaluateObject(selectedQuestion)){
       
@@ -241,8 +229,8 @@ export const PollQuestionnaire = () => {
         }
       });
     }
-    const copySection = {...selectedSection };
-    setSelectedSection(copySection);
+    const copyForm = {...form}
+    setForm(copyForm);
   };
 
   const handleOnSavePoll= async ()=>{
@@ -263,11 +251,9 @@ export const PollQuestionnaire = () => {
     }
     toast.success("Data saved successfully");
     setForm({});
-    setSections([]);
-    setSelectedSection({});
   }
 
-  const buildTextFieldOption = (answers) => {
+  const buildTextFieldOption = (question, answers) => {
     if (utils.evaluateArray(answers)) {
       return answers.map((a) => {
         return (
@@ -279,7 +265,7 @@ export const PollQuestionnaire = () => {
               rowsMax={4}
               placeholder={a.answerDescription}
               value={a.selectedValue}
-              onBlur={handleOnChangeTextField(a)}
+              onBlur={handleOnChangeTextField(a,question)}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -291,23 +277,20 @@ export const PollQuestionnaire = () => {
     }
   };
 
-  const renderActions =[{
-      label: 'save',
-      startIcon:  <SaveIcon/>,
-      onClick: handleOnSavePoll
+  const buildSection=(section)=>{
+    return <div>
+          <CardControl  title={section.sectionTitle}>
+          {      section.questions &&
+                section.questions.map((question) => {
+                  return evaluateQuestionControl(question);
+                })}
+          </CardControl>
+                 
+          </div>;
+            
+    
       
-    }];
-
-  const onRenderSection = (item) => (
-    <TextField
-      className={classes.textField}
-      fullWidth
-      value={item && item.sectionTitle}
-      id="form-title"
-      variant="outlined"
-      placeholder=""
-    />
-  );
+  }
 
   return (
     <div className={classes.root}>
@@ -366,25 +349,21 @@ export const PollQuestionnaire = () => {
           </div>
         </Grid>
 
-        {utils.evaluateArray(sections) && (
+     
           <Grid item xs={12}>
-            <ListControl
-              items={sections}
-              onRenderItem={onRenderSection}
-              onSelectedItem={handleSelectedSection}
-            />
 
-            <CardControl title="Questions"
-            actions={renderActions}
-            >
-              {selectedSection &&
-                selectedSection.questions &&
-                selectedSection.questions.map((question) => {
-                  return evaluateQuestionControl(question);
-                })}
-            </CardControl>
+          {form && form.sections &&
+                form.sections.map(section=> {
+                  return buildSection(section)
+                })
+            }
+           <ButtonPrimary
+            startIcon={<Save/>}
+            label='save'
+            onClick={handleOnSavePoll}
+          />
+           
           </Grid>
-        )}
       </Grid>
     </div>
   );

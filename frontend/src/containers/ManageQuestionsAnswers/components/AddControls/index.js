@@ -118,7 +118,7 @@ export const AddControl = ({ selectedSection, sections, setSections }) => {
                 fullWidth
                 id="question-title"
                 variant="outlined"
-                placeholder="Pregunta"
+                placeholder="Question"
                 onBlur={handleQuestionBlur(index)}
               />
 
